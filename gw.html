@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="fonts/glyphicons-halflings-regular.svg">
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+ 
+   
+</head>
+<body>
+
+
+    <div class="modal fade wq-add" >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!--细节划分-->
+            <h4 style="margin-top: 20px;margin-left: 60px;font-weight: 900;">请填写如下信息:</h4>
+
+            <div class="form-group" style="float: left;">
+              <label for="wq-content" style="margin-left: 100px;">id:</label>
+              <input type="text" class="form-control" id="id" placeholder="id" style="width: 300px;margin-left: 100px;height: 35px;">
+            </div>
+
+            <div class="form-group" style="float: left;">
+              <label for="wq-where" style="margin-left: 100px;">价格:</label>
+              <textarea id="price" class="form-control" rows="2" placeholder="价格" style="width: 300px;margin-left: 100px;height: 35px;"
+                ></textarea>
+            </div>
+
+            <div class="form-group" style="float: left;">
+              <label for="title" style="margin-left: 100px;">名称:</label>
+              <textarea id="title" class="form-control" rows="2" placeholder="名称" style="width: 300px;margin-left: 100px;height: 35px;"
+                ></textarea>
+            </div>
+
+
+            <div class="form-group" style="float: left;">
+              <label for="title" style="margin-left: 100px;">简介:</label>
+              <textarea id="jianjie" class="form-control" rows="2" placeholder="简介" style="width: 300px;margin-left: 100px;height: 35px;"
+                ></textarea>
+            </div>
+
+      
+        <div class="form-group" style="float: left;">
+          <label for="title" style="margin-left: 100px;">数量:</label>
+          <textarea id="num" class="form-control" rows="2" placeholder="num" style="width: 300px;margin-left: 100px;height: 35px;"
+            ></textarea>
+        </div>
+
+       <div class="form-group" >
+              <textarea  class="form-control">     </textarea>
+         </div>
+
+            <div class="text-center">
+              <button type="button" class="btn btn-success" data-dismiss="modal"
+                id="link" style="margin-bottom: 20px;width: 80px;">提交</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+        <input type="button" class="btn" data-toggle="modal" data-target=".wq-add" value="添天" style="margin-left: 470px;width: 80px;"></input></caption>
+    <thead>
+      
+    </thead>
+    <tbody>
+      
+    </tbody>
+    <div class="bs-example" data-example-id="simple-table">
+        <table class="table">
+          <caption>购物车</caption>
+          <thead>
+              <ul>
+
+              </ul>
+            <tr>
+            <th>全选</th>
+              <th>产品</th>
+              <th>单价</th>
+              <th>名称</th>
+              <th>数量</th>
+              <th>删除</th>
+            </tr>
+          </thead>
+
+
+          <tbody>
+            <!-- <tr>
+        
+              <th scope="row">华为</th>
+              <td>2999</td>
+              <td>手机</td>
+              <td class="jianhao">
+                  <span>-</span>
+                 <input type="text" value="1" style="width: 30px;">
+                  <span>+</span>
+              </td>
+              <td>2999</td>
+              <td class="shanchu">
+                  <input type="button" value="删除">
+              </td>
+            </tr>
+
+
+            <tr>
+            
+              <th scope="row">小米</th>
+              <td>3888</td>
+              <td>手机</td>
+         
+              <td class="jianhao">
+                  <span>-</span>
+                 <input type="text" value="1" style="width: 30px;">
+                  <span>+</span>
+              </td>
+              <td>3888</td>
+              <td  class="shanchu">
+                  <input type="button" value="删除">
+              </td>
+            </tr>
+
+            <tr>
+    
+              <th scope="row">oppo</th>
+              <td>4000</td>
+              <td>手机</td>
+    
+              <td class="jianhao">
+                  <span>-</span>
+                 <input type="text" value="1" style="width: 30px;">
+                  <span>+</span>
+              </td>
+              <td>4000</td>
+              <td class="shanchu">
+                  <input type="button" value="删除">
+              </td>
+              <td>结算 <input type="checkbox" ></td>
+            </tr> -->
+          </tbody>
+        </table>
+      </div>
+
+
+      <script>
+       $(function(){
+
+//点击全选  后面的小按钮也被选中
+// $(".checkall").change(function(){
+//    // console.log($(this).prop("checked"));
+//    $(".check").prop("checked",$(this).prop("checked"));
+// })
+
+//点击了所有的小按钮就选中
+
+// $(".check").change(function(){
+//     if($(".check:checked").length === $(".check").length){
+//         $(".checkall").prop("checked",true);
+//     }else{
+//         $(".checkall").prop("checked",false);
+//     }
+// })
+})
+
+
+
+//添加商品
+
+var tbody = document.getElementsByTagName("tbody")[0];
+        axios.get(" http://localhost:3000/gw").then(res=>{
+            console.log("res.data");
+            var data = res.data;
+            let str = "";
+            for(let i = 0 ; i < data.length ; i++){
+                str += `
+                <tr class="active">
+                <td>${data[i].id}</td>
+                <td>${data[i].price}</td>
+                <td>${data[i].title}</td>
+                <td>${data[i].jianjie}</td>
+                <td>${data[i].num}</td>
+                <td class="btn" data-id="${data[i].id}">删除</td></tr>
+                `;
+            }
+
+            tbody.innerHTML = str;
+//删除数据
+   let btn = document.querySelectorAll(".btn");
+            for(let i = 0 ; i < btn.length ; i++){
+              btn[i].onclick = function(){
+                let id = btn[i].getAttribute("data-id");
+                axios.delete(`http://localhost:3000/gw/${id}`).then(res=>{
+                  location.reload();
+                });
+              }
+            }
+
+
+//添加商品
+let link = document.getElementById("link");
+              link.onclick = function(){
+                axios.post("http://localhost:3000/gw",{
+                  id:id.value,
+                  price:price.value,
+                  title:title.value,
+                  jianjie:jianjie.value,
+                  num:num.value,
+                }).then(res=>{
+                  location.reload();
+                });
+              }
+            })
+
+      </script>
+</body>
+</html>
