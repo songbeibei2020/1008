@@ -66,7 +66,7 @@
       </div>
 
 
-        <input type="button" class="btn" data-toggle="modal" data-target=".wq-add" value="添天" style="margin-left: 470px;width: 80px;"></input></caption>
+        <input type="button" class="btn" data-toggle="modal" data-target=".wq-add" value="加" style="margin-left: 470px;width: 80px;"></input></caption>
     <thead>
       
     </thead>
@@ -92,135 +92,73 @@
 
 
           <tbody>
-            <!-- <tr>
-        
-              <th scope="row">华为</th>
-              <td>2999</td>
-              <td>手机</td>
-              <td class="jianhao">
-                  <span>-</span>
-                 <input type="text" value="1" style="width: 30px;">
-                  <span>+</span>
-              </td>
-              <td>2999</td>
-              <td class="shanchu">
-                  <input type="button" value="删除">
-              </td>
-            </tr>
 
+        </tbody>
+    </table>
+  </div>
 
-            <tr>
-            
-              <th scope="row">小米</th>
-              <td>3888</td>
-              <td>手机</td>
-         
-              <td class="jianhao">
-                  <span>-</span>
-                 <input type="text" value="1" style="width: 30px;">
-                  <span>+</span>
-              </td>
-              <td>3888</td>
-              <td  class="shanchu">
-                  <input type="button" value="删除">
-              </td>
-            </tr>
-
-            <tr>
-    
-              <th scope="row">oppo</th>
-              <td>4000</td>
-              <td>手机</td>
-    
-              <td class="jianhao">
-                  <span>-</span>
-                 <input type="text" value="1" style="width: 30px;">
-                  <span>+</span>
-              </td>
-              <td>4000</td>
-              <td class="shanchu">
-                  <input type="button" value="删除">
-              </td>
-              <td>结算 <input type="checkbox" ></td>
-            </tr> -->
-          </tbody>
-        </table>
-      </div>
-
-
-      <script>
-      //  $(function(){
-
-//点击全选  后面的小按钮也被选中
-// $(".checkall").change(function(){
-//    // console.log($(this).prop("checked"));
-//    $(".check").prop("checked",$(this).prop("checked"));
-// })
-
-//点击了所有的小按钮就选中
-
-// $(".check").change(function(){
-//     if($(".check:checked").length === $(".check").length){
-//         $(".checkall").prop("checked",true);
-//     }else{
-//         $(".checkall").prop("checked",false);
-//     }
-// })
-// })
+<script>
 
 
 
-//添加商品
 
-var tbody = document.getElementsByTagName("tbody")[0];
-        axios.get(" http://localhost:3000/gw").then(res=>{
-            console.log("res.data");
-            var data = res.data;
-            let str = "";
-            for(let i = 0 ; i < data.length ; i++){
-                str += `
+
+var tbody = document.querySelectorAll('tbody')[0];
+            axios.get(' http://localhost:3000/gw').then(res => {
+                    console.log(res.data);
+                    var data = res.data;
+                    console.log(data)
+                    let str = '';
+                    for (let i = 0; i < data.length; i++) {
+                        str += `
                 <tr class="active">
-                <td>${data[i].id}</td>
+                    <td>${data[i].id}</td>
                 <td>${data[i].price}</td>
                 <td>${data[i].title}</td>
                 <td>${data[i].jianjie}</td>
                 <td>${data[i].num}</td>
+                
                 <td class="btn" data-id="${data[i].id}">删除</td></tr>
-                `;
-            }
+                    `
+                    }
+                    tbody.innerHTML = str;
+                    let btn = document.querySelectorAll(".btn");
+                    console.log(btn);
+                    for (let i = 0; i < btn.length; i++) {
+                        btn[i].onclick = function () {
+                            let id = btn[i].getAttribute("data-id");
+                            axios.delete(`http://localhost:3000/gw/${id}`).then(res => {
+                                location.reload();
+                            });
+                        }
+                    }
 
-            tbody.innerHTML = str;
+                }
+
+            );
 
 
             let link = document.getElementById("link");
-              link.onclick = function(){
-                axios.post("http://localhost:3000/gw",{
-                  id:id.value,
-                  price:price.value,
-                  title:title.value,
-                  jianjie:jianjie.value,
-                  num:num.value,
-                }).then(res=>{
-                  location.reload();
-                });
-              }
-            })
-            
-//删除数据
-   let btn = document.querySelectorAll(".btn");
-            for(let i = 0 ; i < btn.length ; i++){
-              btn[i].onclick = function(){
-                let id = btn[i].getAttribute("data-id");
-                axios.delete(`http://localhost:3000/gw/${id}`).then(res=>{
-                  location.reload();
-                });
-              }
-            }
+
+     link.onclick = function(){
+                    axios.post('http://localhost:3000/gw', {
+                        id: inputs.value,
+                        name: inputs1.value,
+                        number: inputs2.value,
+                        price: inputs3.value
+                    }).then(res => {
+                        location.reload();
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                }
+
+  
 
 
-//添加商品
 
 
-      </script>
-</body>
-</html>
+
+
+    
+</script>

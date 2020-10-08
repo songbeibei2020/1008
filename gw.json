@@ -1,11 +1,11 @@
 {
   "gw": [
     {
-      "id": 3,
-      "price": "4000",
-      "title": "oppo",
-      "jianjie": "拍照好",
-      "num": 1
+      "id": 2,
+      "price": 2000,
+      "title": "华为2",
+      "jianjie": "手机",
+      "num": 3
     }
   ]
 }
